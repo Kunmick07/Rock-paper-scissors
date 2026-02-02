@@ -2,28 +2,67 @@ const choices = ["Rock", "Paper", "Scissors"];
 const playerDisplay = document.getElementById("playerDisplay");
 const computerDisplay = document.getElementById("computerDisplay");
 const resultDisplay = document.getElementById("resultDisplay");
+const PlayerScoreDisplay = document.getElementById("PlayerScoreDisplay");
+const ComputerScoreDisplay = document.getElementById("ComputerScoreDisplay");
+
+let PlayerScore = 0;
+let ComputerScore = 0;
 
 function playGame(playerChoice) {
-    let computerChoice = choices[Math.floor(Math.random() * 3)];
+
+    // 🛑 stop game if someone already won
+    if (PlayerScore === 5 || ComputerScore === 5) {
+        return;
+    }
+
+    const computerChoice = choices[Math.floor(Math.random() * 3)];
     let result = "";
 
-    if (playerChoice === computerChoice) {
+    const normalizedPlayer = playerChoice.toLowerCase();
+    const normalizedComputer = computerChoice.toLowerCase();
+
+    if (normalizedPlayer === normalizedComputer) {
         result = "IT'S A TIE!";
     } else {
-        switch (playerChoice) {
+        switch (normalizedPlayer) {
             case "rock":
-                result = (computerChoice === "Scissors") ? "YOU WIN!" : "YOU LOSE!";
+                result = (normalizedComputer === "scissors") ? "YOU WIN!" : "YOU LOSE!";
                 break;
             case "paper":
-                result = (computerChoice === "Rock") ? "YOU WIN!" : "YOU LOSE!";
+                result = (normalizedComputer === "rock") ? "YOU WIN!" : "YOU LOSE!";
                 break;
             case "scissors":
-                result = (computerChoice === "Paper") ? "YOU WIN!" : "YOU LOSE!";
+                result = (normalizedComputer === "paper") ? "YOU WIN!" : "YOU LOSE!";
                 break;
         }
     }
 
+    // Display choices
     playerDisplay.textContent = `PLAYER: ${playerChoice}`;
     computerDisplay.textContent = `COMPUTER: ${computerChoice}`;
-    resultDisplay.textContent = result;
+
+    // Color reset
+    resultDisplay.classList.remove("greentext", "redtext");
+
+    if (result === "YOU WIN!") {
+        PlayerScore++;
+        PlayerScoreDisplay.textContent = PlayerScore;
+        resultDisplay.classList.add("greentext");
+    } 
+    else if (result === "YOU LOSE!") {
+        ComputerScore++;
+        ComputerScoreDisplay.textContent = ComputerScore;
+        resultDisplay.classList.add("redtext");
+    }
+
+    // 🏆 check for winner
+    if (PlayerScore === 5) {
+        resultDisplay.textContent = "🎉 YOU WON THE GAME!";
+    } 
+    else if (ComputerScore === 5) {
+        resultDisplay.textContent = "💻 COMPUTER WON THE GAME!";
+    } 
+    else {
+        resultDisplay.textContent = result;
+    }
 }

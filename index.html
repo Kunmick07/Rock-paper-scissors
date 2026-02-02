@@ -6,12 +6,12 @@
     <title>playGame</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body>gi
     
     <h1>Rock - Paper - Scissors</h1>
 
     <div class="choices">
-        <button onclick="playGame('Rock')">👊</button>
+        <button onclick="playGame('Rock')">👊</button> 
         <button onclick="playGame('Paper')">✋</button>
         <button onclick="playGame('Scissors')">✌️</button>
     </div>
@@ -20,7 +20,13 @@
     <div id="computerDisplay">COMPUTER:</div>
     <div id="resultDisplay"> </div>
 
-   
+   <div class="ScoreDisplay"> Player score:
+        <span id="PlayerScoreDisplay">0</span>
+   </div>
+
+   <div class="ScoreDisplay"> Computer score:
+        <span id="ComputerScoreDisplay">0</span>
+   </div>
 
     <script src="index.js"></script>
     
